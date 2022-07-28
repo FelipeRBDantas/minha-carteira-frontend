@@ -6,10 +6,10 @@ const Toggle: React.FC = () => (
     <Container>
         <ToggleLabel>Light</ToggleLabel>
         <ToggleSelector 
-        checked 
-        uncheckedIcon={ false } 
-        checkedIcon={ false } 
-        onChange={ () => console.log('mudou') } />
+            checked 
+            uncheckedIcon={ false } 
+            checkedIcon={ false } 
+            onChange={ () => console.log('mudou') } />
         <ToggleLabel>Dark</ToggleLabel>
     </Container>
 );

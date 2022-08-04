@@ -6,56 +6,48 @@ export const ContentHeaderOptions = [
 
 export const ListItemHistoryFinanceCard = [
     {
-        cardColor: '#313862',
         tagColor: '#E44C4E',
         title: 'Conta de Luz',
         subtitle: '03/08/2022',
         amount: '130,00'
     },
     {
-        cardColor: '#313862',
         tagColor: '#E44C4E',
         title: 'Conta de Luz',
         subtitle: '03/08/2022',
         amount: '130,00'
     },
     {
-        cardColor: '#313862',
         tagColor: '#E44C4E',
         title: 'Conta de Luz',
         subtitle: '03/08/2022',
         amount: '130,00'
     },
     {
-        cardColor: '#313862',
         tagColor: '#E44C4E',
         title: 'Conta de Luz',
         subtitle: '03/08/2022',
         amount: '130,00'
     },
     {
-        cardColor: '#313862',
         tagColor: '#E44C4E',
         title: 'Conta de Luz',
         subtitle: '03/08/2022',
         amount: '130,00'
     },
     {
-        cardColor: '#313862',
         tagColor: '#E44C4E',
         title: 'Conta de Luz',
         subtitle: '03/08/2022',
         amount: '130,00'
     },
     {
-        cardColor: '#313862',
         tagColor: '#E44C4E',
         title: 'Conta de Luz',
         subtitle: '03/08/2022',
         amount: '130,00'
     },
     {
-        cardColor: '#313862',
         tagColor: '#E44C4E',
         title: 'Conta de Luz',
         subtitle: '03/08/2022',

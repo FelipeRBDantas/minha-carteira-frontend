@@ -6,16 +6,26 @@ import SelectInput from "../../components/SelectInput";
 
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 
-import { ContentHeaderOptions, ListItemHistoryFinanceCard } from "../../store/enums/enum";
+import { Months, Years, ListItemHistoryFinanceCard } from "../../store/enums/enum";
 
-import { Container, Content } from "./styles";
+import { Container, Content, Filters } from "./styles";
 
 const List: React.FC = () => {
     return (
         <Container>
             <ContentHeader title="Saídas" lineColor='#E44C4E'>
-                <SelectInput options={ ContentHeaderOptions } />
+                <SelectInput options={ Months } />
+                <SelectInput options={ Years } />
             </ContentHeader>
+
+            <Filters>
+                <button type="button" className="tag-filter tag-filter-recurrent">
+                    Recorrentes
+                </button>
+                <button type="button" className="tag-filter tag-filter-eventual">
+                    Eventuais
+                </button>
+            </Filters>
             
             <Content>
                 { ListItemHistoryFinanceCard && ListItemHistoryFinanceCard.map( item => (

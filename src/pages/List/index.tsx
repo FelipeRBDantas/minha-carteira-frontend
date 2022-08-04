@@ -20,7 +20,6 @@ const List: React.FC = () => {
             <Content>
                 { ListItemHistoryFinanceCard && ListItemHistoryFinanceCard.map( item => (
                     <HistoryFinanceCard 
-                        cardColor={ item.cardColor } 
                         tagColor={ item.tagColor }
                         title={ item.title }
                         subtitle={ item.subtitle }

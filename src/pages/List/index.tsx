@@ -4,9 +4,11 @@ import ContentHeader from "../../components/ContentHeader";
 
 import SelectInput from "../../components/SelectInput";
 
-import { ContentHeaderOptions } from "../../store/enums/enum";
+import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 
-import { Container } from "./styles";
+import { ContentHeaderOptions, ListItemHistoryFinanceCard } from "../../store/enums/enum";
+
+import { Container, Content } from "./styles";
 
 const List: React.FC = () => {
     return (
@@ -14,6 +16,19 @@ const List: React.FC = () => {
             <ContentHeader title="Saídas" lineColor='#E44C4E'>
                 <SelectInput options={ ContentHeaderOptions } />
             </ContentHeader>
+            
+            <Content>
+                { ListItemHistoryFinanceCard && ListItemHistoryFinanceCard.map( item => (
+                    <HistoryFinanceCard 
+                        cardColor={ item.cardColor } 
+                        tagColor={ item.tagColor }
+                        title={ item.title }
+                        subtitle={ item.subtitle }
+                        amount={`R$ ${ item.amount }`}
+                        />
+                    ))
+                }
+            </Content>
         </Container>
     );
 }

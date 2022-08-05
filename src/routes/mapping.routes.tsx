@@ -18,7 +18,8 @@ export const mappingRoutes: Array<IRoute> = [
         path: '/dashboard',
         othersidePath: null,
         element: <Dashboard />,
-        submenu: null
+        submenu: null,
+        displayed: true
     },
     {
         title: 'Listagem',
@@ -32,25 +33,22 @@ export const mappingRoutes: Array<IRoute> = [
         submenu: [
             {
                 title: 'Entradas',
-                othersideTitle: null,
                 icon: <MdArrowUpward />,
-                othersideIcon: null,
                 auth: true,
-                path: null,
-                othersidePath: null,
+                path: '/list/entry-balance',
                 element: null,
+                displayed: true
             },
             {
                 title: 'Saídas',
-                othersideTitle: null,
                 icon: <MdArrowDownward />,
-                othersideIcon: null,
                 auth: true,
-                path: null,
-                othersidePath: null,
+                path: '/list/exit-balance',
                 element: null,
+                displayed: true
             }
-        ]
+        ],
+        displayed: null
     },
     {
         title: 'Login',
@@ -61,6 +59,7 @@ export const mappingRoutes: Array<IRoute> = [
         path: '/login',
         othersidePath: '/login',
         element: <SignIn />,
-        submenu: null
+        submenu: null,
+        displayed: true
     }
 ];

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import ContentHeader from "../../components/ContentHeader";
 
@@ -12,10 +12,24 @@ import { Container, Content, Filters } from "./styles";
 
 import { v4 as uuidv4 } from 'uuid';
 
+import { useParams } from "react-router-dom";
+
 const List: React.FC = () => {
+    const { type } = useParams();
+
+    const contentHeaderProps = useMemo(() => {
+        return type === 'entry-balance' ? {
+            title: 'Entradas',
+            lineColor: '#F7931B'
+        } : {
+            title: 'Saídas',
+            lineColor: '#E44C4E'
+        };
+    }, [ type ]);
+
     return (
         <Container>
-            <ContentHeader title="Saídas" lineColor='#E44C4E'>
+            <ContentHeader title={ contentHeaderProps.title } lineColor={ contentHeaderProps.lineColor }>
                 <SelectInput options={ Months } />
                 <SelectInput options={ Years } />
             </ContentHeader>

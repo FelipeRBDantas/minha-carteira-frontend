@@ -10,6 +10,8 @@ import { Months, Years, ListItemHistoryFinanceCard } from "../../store/enums/enu
 
 import { Container, Content, Filters } from "./styles";
 
+import { v4 as uuidv4 } from 'uuid';
+
 const List: React.FC = () => {
     return (
         <Container>
@@ -30,6 +32,7 @@ const List: React.FC = () => {
             <Content>
                 { ListItemHistoryFinanceCard && ListItemHistoryFinanceCard.map( item => (
                     <HistoryFinanceCard 
+                        key={ uuidv4() }
                         tagColor={ item.tagColor }
                         title={ item.title }
                         subtitle={ item.subtitle }

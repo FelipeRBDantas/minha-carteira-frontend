@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import logoImg from '../../assets/logo.svg';
 
-import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from 'react-icons/md';
-
 import { Container, Header, LogoImg, Title, MenuContainer, MenuItemLink } from './styles';
 
+import { mappingRoutes } from "../../routes/mapping.routes";
+
+import { IRoute } from "../../store/types/types";
+
+import { v4 as uuidv4 } from 'uuid';
+
 const Aside: React.FC = () => {
+    const handleMenuItemLink = useCallback((route: IRoute) => {
+        if (route.submenu) {
+            return route.submenu.map( (item)  => {
+                return <MenuItemLink 
+                            key={ uuidv4() } 
+                            href={ item.path ? item.path : route.path }>
+                    { item.icon }
+                    { item.title }
+                </MenuItemLink>;
+            });
+        } else {
+            if (route.othersideTitle === 'Sair') {
+                return <MenuItemLink 
+                            key={ uuidv4() } 
+                            href={ route.othersidePath ? route.othersidePath : '' }>
+                    { route.othersideIcon }
+                    { route.othersideTitle }
+                </MenuItemLink>;
+            }
+
+            return <MenuItemLink 
+                        key={ uuidv4() } 
+                        href={ route.path }>
+                { route.icon }
+                { route.title }
+            </MenuItemLink>;
+        }
+    }, []);
+
     return (
         <Container>
             <Header>
@@ -15,22 +48,7 @@ const Aside: React.FC = () => {
             </Header>
             
             <MenuContainer>
-                <MenuItemLink href="#">
-                    <MdDashboard />
-                    Dashboard
-                </MenuItemLink>
-                <MenuItemLink href="#">
-                    <MdArrowDownward />
-                    Entradas
-                </MenuItemLink>
-                <MenuItemLink href="#">
-                    <MdArrowUpward />
-                    Saídas
-                </MenuItemLink>
-                <MenuItemLink href="#">
-                    <MdExitToApp />
-                    Sair
-                </MenuItemLink>
+                { mappingRoutes.map( (route) => handleMenuItemLink(route)) }
             </MenuContainer>
         </Container>
     );

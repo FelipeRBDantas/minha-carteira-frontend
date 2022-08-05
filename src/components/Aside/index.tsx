@@ -27,7 +27,7 @@ const Aside: React.FC = () => {
                 if (route.othersidePath) {
                     return <MenuItemLink 
                                 key={ uuidv4() } 
-                                href={ route.othersidePath ? route.othersidePath : '' }
+                                href={ route.othersidePath }
                             >
                         { route.othersideIcon }
                         { route.othersideTitle }

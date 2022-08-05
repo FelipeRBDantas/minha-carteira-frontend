@@ -1,25 +1,21 @@
 import React from "react";
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import Dashboard from "../pages/Dashboard";
+import { Routes, Route } from 'react-router-dom';
 
 import Layout from "../components/Layout";
 
-import List from "../pages/List";
+import { mappingRoutes } from "./mapping.routes";
 
 const AppRoutes: React.FC = () => (
     <Layout>
         <Routes>
-            <Route 
-                path="/dashboard" 
-                element={ <Dashboard /> } 
-            />
-
-            <Route 
-                path="/list/:type" 
-                element={ <List /> } 
-            />
+            { mappingRoutes.map((route, index) => (
+                <Route 
+                    key={ index }
+                    path={ route.path } 
+                    element={ route.element } 
+                />
+            )) }
         </Routes>
     </Layout>
 );

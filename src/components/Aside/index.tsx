@@ -11,33 +11,58 @@ import { IRoute } from "../../store/types/types";
 import { v4 as uuidv4 } from 'uuid';
 
 const Aside: React.FC = () => {
-    const handleMenuItemLink = useCallback((route: IRoute) => {
-        if (route.submenu) {
-            return route.submenu.map( (item)  => {
-                return <MenuItemLink 
-                            key={ uuidv4() } 
-                            href={ item.path ? item.path : route.path }>
-                    { item.icon }
-                    { item.title }
-                </MenuItemLink>;
-            });
-        } else {
-            if (route.othersideTitle === 'Sair') {
-                return <MenuItemLink 
-                            key={ uuidv4() } 
-                            href={ route.othersidePath ? route.othersidePath : '' }>
-                    { route.othersideIcon }
-                    { route.othersideTitle }
-                </MenuItemLink>;
-            }
+    const handleMenuItemLink = useCallback((route: IRoute, othersideConditions: boolean[]) => {
+        if (route.displayed !== false) {
+            if (route.submenu) {
+                return route.submenu.map( (item)  => {     
+                    return <MenuItemLink 
+                                key={ uuidv4() } 
+                                href={ item.path ? item.path : '' }
+                            >
+                                { item.icon }
+                                { item.title }
+                            </MenuItemLink>;
+                });
+            } else {
+                if (othersideConditions.length > 0) {
+                    return othersideConditions.map( (othersideCondition)  => {
+                        if (othersideCondition) {
+                            return <MenuItemLink 
+                                        key={ uuidv4() } 
+                                        href={ route.othersidePath ? route.othersidePath : '' }
+                                    >
+                                { route.othersideIcon }
+                                { route.othersideTitle }
+                            </MenuItemLink>;
+                        } else {
+                            return <MenuItemLink 
+                                key={ uuidv4() } 
+                                href={ route.path }
+                            >
+                                { route.icon }
+                                { route.title }
+                            </MenuItemLink>;
+                        }
+                    });
+                }
 
-            return <MenuItemLink 
-                        key={ uuidv4() } 
-                        href={ route.path }>
-                { route.icon }
-                { route.title }
-            </MenuItemLink>;
+                return <MenuItemLink 
+                            key={ uuidv4() } 
+                            href={ route.path }
+                        >
+                            { route.icon }
+                            { route.title }
+                        </MenuItemLink>;
+            }
         }
+    }, []);
+
+    const othersideConditions = useCallback((route: IRoute) => {
+        const conditions: boolean[] = [ 
+            route.othersideTitle === 'Sair' 
+        ];
+
+        return conditions;
     }, []);
 
     return (
@@ -48,7 +73,10 @@ const Aside: React.FC = () => {
             </Header>
             
             <MenuContainer>
-                { mappingRoutes.map( (route) => handleMenuItemLink(route)) }
+                { mappingRoutes.map( (route) => handleMenuItemLink(
+                    route, 
+                    othersideConditions(route)
+                ) ) }
             </MenuContainer>
         </Container>
     );

@@ -11,7 +11,7 @@ import { IRoute } from "../../store/types/types";
 import { v4 as uuidv4 } from 'uuid';
 
 const Aside: React.FC = () => {
-    const handleMenuItemLink = useCallback((route: IRoute, othersideConditions: boolean[]) => {
+    const handleMenuItemLink = useCallback((route: IRoute) => {
         if (route.displayed !== false) {
             if (route.submenu) {
                 return route.submenu.map( (item)  => {     
@@ -24,26 +24,14 @@ const Aside: React.FC = () => {
                             </MenuItemLink>;
                 });
             } else {
-                if (othersideConditions.length > 0) {
-                    return othersideConditions.map( (othersideCondition)  => {
-                        if (othersideCondition) {
-                            return <MenuItemLink 
-                                        key={ uuidv4() } 
-                                        href={ route.othersidePath ? route.othersidePath : '' }
-                                    >
-                                { route.othersideIcon }
-                                { route.othersideTitle }
-                            </MenuItemLink>;
-                        } else {
-                            return <MenuItemLink 
+                if (route.othersidePath) {
+                    return <MenuItemLink 
                                 key={ uuidv4() } 
-                                href={ route.path }
+                                href={ route.othersidePath ? route.othersidePath : '' }
                             >
-                                { route.icon }
-                                { route.title }
-                            </MenuItemLink>;
-                        }
-                    });
+                        { route.othersideIcon }
+                        { route.othersideTitle }
+                    </MenuItemLink>;
                 }
 
                 return <MenuItemLink 
@@ -57,14 +45,6 @@ const Aside: React.FC = () => {
         }
     }, []);
 
-    const othersideConditions = useCallback((route: IRoute) => {
-        const conditions: boolean[] = [ 
-            route.othersideTitle === 'Sair' 
-        ];
-
-        return conditions;
-    }, []);
-
     return (
         <Container>
             <Header>
@@ -73,10 +53,7 @@ const Aside: React.FC = () => {
             </Header>
             
             <MenuContainer>
-                { mappingRoutes.map( (route) => handleMenuItemLink(
-                    route, 
-                    othersideConditions(route)
-                ) ) }
+                { mappingRoutes.map( (route) => handleMenuItemLink( route ) ) }
             </MenuContainer>
         </Container>
     );

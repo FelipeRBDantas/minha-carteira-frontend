@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import ContentHeader from "../../components/ContentHeader";
 
@@ -6,7 +6,7 @@ import SelectInput from "../../components/SelectInput";
 
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 
-import { Months, Years, ListItemHistoryFinanceCard } from "../../store/enums/enum";
+import { Months, Years, Gains, Expanses } from "../../store/enums/enum";
 
 import { Container, Content, Filters } from "./styles";
 
@@ -14,8 +14,18 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useParams } from "react-router-dom";
 
+interface IData {
+    description: string;
+    amountFormatted: string;
+    frequency: string;
+    dateFormatted: string;
+    tagColor: string;
+}
+
 const List: React.FC = () => {
     const { type } = useParams();
+
+    const [data, setData] = useState<IData[]>([]);
 
     const contentHeaderProps = useMemo(() => {
         return type === 'entry-balance' ? {
@@ -26,6 +36,24 @@ const List: React.FC = () => {
             lineColor: '#E44C4E'
         };
     }, [ type ]);
+
+    const listData = useMemo(() => {
+        return type === 'entry-balance' ? Gains : Expanses;
+    }, [ type ]);
+
+    useEffect(() => {
+        const response = listData.map( item => {
+            return {
+                description: item.description,
+                amountFormatted: item.amount,
+                frequency: item.frequency,
+                dateFormatted: item.date,
+                tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E',
+            }
+        });
+
+        setData(response);
+    }, []);
 
     return (
         <Container>
@@ -44,13 +72,13 @@ const List: React.FC = () => {
             </Filters>
             
             <Content>
-                { ListItemHistoryFinanceCard && ListItemHistoryFinanceCard.map( item => (
+                { data && data.map( item => (
                     <HistoryFinanceCard 
                         key={ uuidv4() }
                         tagColor={ item.tagColor }
-                        title={ item.title }
-                        subtitle={ item.subtitle }
-                        amount={`R$ ${ item.amount }`}
+                        title={ item.description }
+                        subtitle={ item.dateFormatted }
+                        amount={`R$ ${ item.amountFormatted }`}
                         />
                     ))
                 }

@@ -1,3 +1,8 @@
+export const ListParams = {
+    entryBalance: 'entry-balance',
+    exitBalance: 'exit-balance'
+};
+
 export const Months = [
     { value: 1, label: 'Janeiro' },
     { value: 2, label: 'Fevereiro' },

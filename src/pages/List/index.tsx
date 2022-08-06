@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import ContentHeader from "../../components/ContentHeader";
 
@@ -6,7 +6,7 @@ import SelectInput from "../../components/SelectInput";
 
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 
-import { Months, Years, Gains, Expanses } from "../../store/enums/enum";
+import { ListParams, Months, Years, Gains, Expanses } from "../../store/enums/enum";
 
 import { Container, Content, Filters } from "./styles";
 
@@ -28,7 +28,7 @@ const List: React.FC = () => {
     const [data, setData] = useState<IData[]>([]);
 
     const contentHeaderProps = useMemo(() => {
-        return type === 'entry-balance' ? {
+        return type === ListParams.entryBalance ? {
             title: 'Entradas',
             lineColor: '#F7931B'
         } : {
@@ -38,8 +38,12 @@ const List: React.FC = () => {
     }, [ type ]);
 
     const listData = useMemo(() => {
-        return type === 'entry-balance' ? Gains : Expanses;
+        return type === ListParams.entryBalance ? Gains : Expanses;
     }, [ type ]);
+
+    const handleTypeFrequency = useCallback((frquency: string) => {
+        return frquency === 'recorrente' ? '#4E41F0' : '#E44C4E';
+    }, []);
 
     useEffect(() => {
         const response = listData.map( item => {
@@ -48,7 +52,7 @@ const List: React.FC = () => {
                 amountFormatted: item.amount,
                 frequency: item.frequency,
                 dateFormatted: item.date,
-                tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E',
+                tagColor: handleTypeFrequency(item.frequency),
             }
         });
 

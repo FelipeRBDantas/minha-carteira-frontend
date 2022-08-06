@@ -8,6 +8,8 @@ import List from "../pages/List";
 
 import SignIn from "../pages/SignIn";
 
+import { ListParams } from '../store/enums/enum';
+
 export const mappingRoutes: Array<IRoute> = [
     {
         title: 'Dashboard',
@@ -35,7 +37,7 @@ export const mappingRoutes: Array<IRoute> = [
                 title: 'Entradas',
                 icon: <MdArrowUpward />,
                 auth: true,
-                path: '/list/entry-balance',
+                path: `/list/${ListParams.entryBalance}`,
                 element: null,
                 displayed: true
             },
@@ -43,7 +45,7 @@ export const mappingRoutes: Array<IRoute> = [
                 title: 'Saídas',
                 icon: <MdArrowDownward />,
                 auth: true,
-                path: '/list/exit-balance',
+                path: `/list/${ListParams.exitBalance}`,
                 element: null,
                 displayed: true
             }

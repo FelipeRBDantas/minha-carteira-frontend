@@ -4,7 +4,7 @@ import { Container, Profile, Welcome, UserName } from './styles';
 
 import Toggle from '../Toggle';
 
-import emojis from "../../utils/emojis";
+import { emojis } from "../../utils/stringUtil";
 
 const MainHeader: React.FC = () => {
     const emoji = useMemo(() => {

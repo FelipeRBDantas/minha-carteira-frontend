@@ -14,6 +14,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useParams } from "react-router-dom";
 
+import { formatCurrency } from "../../utils/numberUtil";
+
+import { reverseDate } from "../../utils/stringUtil";
+
 interface IData {
     description: string;
     amountFormatted: string;
@@ -49,9 +53,9 @@ const List: React.FC = () => {
         const response = listData.map( item => {
             return {
                 description: item.description,
-                amountFormatted: item.amount,
+                amountFormatted: formatCurrency(item.amount),
                 frequency: item.frequency,
-                dateFormatted: item.date,
+                dateFormatted: reverseDate(item.date),
                 tagColor: handleTypeFrequency(item.frequency),
             }
         });
@@ -82,7 +86,7 @@ const List: React.FC = () => {
                         tagColor={ item.tagColor }
                         title={ item.description }
                         subtitle={ item.dateFormatted }
-                        amount={`R$ ${ item.amountFormatted }`}
+                        amount={ item.amountFormatted }
                         />
                     ))
                 }

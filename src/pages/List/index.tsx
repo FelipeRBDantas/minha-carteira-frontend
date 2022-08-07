@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 
 import { formatCurrency } from "../../utils/numberUtil";
 
-import { reverseDate } from "../../utils/stringUtil";
+import { compareMonth, comparYear, reverseDate } from "../../utils/dateUtil";
 
 interface IData {
     description: string;
@@ -54,28 +54,21 @@ const List: React.FC = () => {
     }, []);
 
     useEffect(() => {
-      const filteredDate = listData.filter( item => {
-        const date = new Date(item.date);
+      const filteredDate = listData
+        .filter(
+          item => compareMonth(item.date, monthSelected) && comparYear(item.date, yearSelected)
+        )
+        .map( item => {
+          return {
+              description: item.description,
+              amountFormatted: formatCurrency(item.amount),
+              frequency: item.frequency,
+              dateFormatted: reverseDate(item.date),
+              tagColor: handleTypeFrequency(item.frequency),
+          }
+        });
 
-        const month = String(date.getMonth() + 1);
-
-        const year = String(date.getFullYear());
-
-        return month === monthSelected && year === yearSelected;
-
-      });
-
-      const formattedData = filteredDate.map( item => {
-        return {
-            description: item.description,
-            amountFormatted: formatCurrency(item.amount),
-            frequency: item.frequency,
-            dateFormatted: reverseDate(item.date),
-            tagColor: handleTypeFrequency(item.frequency),
-        }
-      });
-
-      setData(formattedData);
+      setData(filteredDate);
     }, [ listData, monthSelected, yearSelected, setData ]);
 
     return (

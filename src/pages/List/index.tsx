@@ -31,6 +31,10 @@ const List: React.FC = () => {
 
     const [data, setData] = useState<IData[]>([]);
 
+    const [monthSelected, setMonthSelected] = useState<string>(String(new Date().getMonth() + 1));
+
+    const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()));
+
     const contentHeaderProps = useMemo(() => {
         return type === ListParams.entryBalance ? {
             title: 'Entradas',
@@ -50,24 +54,35 @@ const List: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const response = listData.map( item => {
-            return {
-                description: item.description,
-                amountFormatted: formatCurrency(item.amount),
-                frequency: item.frequency,
-                dateFormatted: reverseDate(item.date),
-                tagColor: handleTypeFrequency(item.frequency),
-            }
-        });
+      const filteredDate = listData.filter( item => {
+        const date = new Date(item.date);
 
-        setData(response);
-    }, []);
+        const month = String(date.getMonth() + 1);
+
+        const year = String(date.getFullYear());
+
+        return month === monthSelected && year === yearSelected;
+
+      });
+
+      const formattedData = filteredDate.map( item => {
+        return {
+            description: item.description,
+            amountFormatted: formatCurrency(item.amount),
+            frequency: item.frequency,
+            dateFormatted: reverseDate(item.date),
+            tagColor: handleTypeFrequency(item.frequency),
+        }
+      });
+
+      setData(formattedData);
+    }, [ listData, monthSelected, yearSelected, setData ]);
 
     return (
         <Container>
             <ContentHeader title={ contentHeaderProps.title } lineColor={ contentHeaderProps.lineColor }>
-                <SelectInput options={ Months } />
-                <SelectInput options={ Years } />
+                <SelectInput options={ Months } onChange={ (e) => setMonthSelected(e.target.value) } value={ monthSelected } />
+                <SelectInput options={ Years } onChange={ (e) => setYearSelected(e.target.value) } value={ yearSelected }  />
             </ContentHeader>
 
             <Filters>

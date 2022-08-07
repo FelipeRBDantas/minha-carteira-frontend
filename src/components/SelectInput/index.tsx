@@ -6,10 +6,10 @@ import { ISelectInputProps } from "../../store/types/types";
 
 import { Container } from './styles';
 
-const SelectInput: React.FC<ISelectInputProps> = ({ options }) => {
+const SelectInput: React.FC<ISelectInputProps> = ({ options, onChange, value }) => {
     return (
         <Container>
-            <select>
+            <select onChange={ onChange } value={ value }>
                 {
                     options.map((option) => (
                         <option key={ uuidv4() } value={ option.value }>{ option.label }</option>

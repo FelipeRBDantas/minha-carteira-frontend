@@ -1,3 +1,8 @@
+export const TypeMovement = {
+  recurrent: 'recorrente',
+  eventual: 'eventual'
+};
+
 export const ListParams = {
     entryBalance: 'entry-balance',
     exitBalance: 'exit-balance'

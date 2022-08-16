@@ -10,7 +10,7 @@ export const compareMonth = (fullDate: string, month: string): boolean => {
   return month === anotherMonth;
 };
 
-export const comparYear = (fullDate: string, year: string): boolean => {
+export const compareYear = (fullDate: string, year: string): boolean => {
   const formattedDate = new Date(fullDate);
 
   const anotherYear = String(formattedDate.getFullYear());

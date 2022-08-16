@@ -5,6 +5,7 @@ export interface ISelectInputProps {
     }[],
     onChange(event: React.ChangeEvent<HTMLSelectElement>): void | undefined;
     value: string | number;
+    labelEmpty?: string;
 }
 
 export interface IRoute {

@@ -6,7 +6,7 @@ import SelectInput from "../../components/SelectInput";
 
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 
-import { ListParams, Months, Years, Gains, Expanses } from "../../store/enums/enum";
+import { ListParams, Months, Gains, Expanses } from "../../store/enums/enum";
 
 import { Container, Content, Filters } from "./styles";
 
@@ -17,6 +17,8 @@ import { useParams } from "react-router-dom";
 import { formatCurrency } from "../../utils/numberUtil";
 
 import { compareMonth, comparYear, reverseDate } from "../../utils/dateUtil";
+
+import { ISelectInputProps } from "../../store/types/types";
 
 interface IData {
     description: string;
@@ -49,6 +51,27 @@ const List: React.FC = () => {
         return type === ListParams.entryBalance ? Gains : Expanses;
     }, [ type ]);
 
+    const years: ISelectInputProps["options"] = useMemo(() => {
+      let uniqueYears: number[] = [];
+      
+      listData.forEach( item => {
+        const date = new Date(item.date);
+
+        const year = date.getFullYear();
+
+        if (!uniqueYears.includes(year)) {
+          uniqueYears.push(year);
+        }
+      });
+
+      return uniqueYears.map( year => {
+        return {
+          value: year,
+          label: year,
+        }
+      });
+    }, [ listData ]);
+
     const handleTypeFrequency = useCallback((frquency: string) => {
         return frquency === 'recorrente' ? '#4E41F0' : '#E44C4E';
     }, []);
@@ -69,13 +92,13 @@ const List: React.FC = () => {
         });
 
       setData(filteredDate);
-    }, [ listData, monthSelected, yearSelected, setData ]);
+    }, [listData, monthSelected, yearSelected, setData, handleTypeFrequency]);
 
     return (
         <Container>
             <ContentHeader title={ contentHeaderProps.title } lineColor={ contentHeaderProps.lineColor }>
-                <SelectInput options={ Months } onChange={ (e) => setMonthSelected(e.target.value) } value={ monthSelected } />
-                <SelectInput options={ Years } onChange={ (e) => setYearSelected(e.target.value) } value={ yearSelected }  />
+                <SelectInput options={ Months } onChange={ (e) => setMonthSelected(e.target.value) } value={ monthSelected } labelEmpty="Mês não informado" />
+                <SelectInput options={ years } onChange={ (e) => setYearSelected(e.target.value) } value={ yearSelected } labelEmpty="Ano não informado" />
             </ContentHeader>
 
             <Filters>

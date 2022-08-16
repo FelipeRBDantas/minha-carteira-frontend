@@ -94,6 +94,13 @@ const List: React.FC = () => {
       setData(filteredDate);
     }, [listData, monthSelected, yearSelected, setData, handleTypeFrequency]);
 
+    useEffect(() => {
+      if (years && years.length > 0) {
+        setYearSelected(years[0].value.toString());
+        setMonthSelected(Months[0].value.toString());
+      }
+    }, [ years ]);
+
     return (
         <Container>
             <ContentHeader title={ contentHeaderProps.title } lineColor={ contentHeaderProps.lineColor }>

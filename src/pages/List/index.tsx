@@ -6,7 +6,7 @@ import SelectInput from "../../components/SelectInput";
 
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 
-import { ListParams, Months, Gains, Expanses } from "../../store/enums/enum";
+import { ListParams, Months, Gains, Expanses, TypeMovement } from "../../store/enums/enum";
 
 import { Container, Content, Filters } from "./styles";
 
@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 
 import { formatCurrency } from "../../utils/numberUtil";
 
-import { compareMonth, comparYear, reverseDate } from "../../utils/dateUtil";
+import { compareMonth, compareYear, reverseDate } from "../../utils/dateUtil";
 
 import { ISelectInputProps } from "../../store/types/types";
 
@@ -36,6 +36,8 @@ const List: React.FC = () => {
     const [monthSelected, setMonthSelected] = useState<string>(String(new Date().getMonth() + 1));
 
     const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()));
+
+    const [selectedFrequency, setSelectedFrequency] = useState<string[]>([ TypeMovement.recurrent, TypeMovement.eventual ]);
 
     const contentHeaderProps = useMemo(() => {
         return type === ListParams.entryBalance ? {
@@ -73,13 +75,25 @@ const List: React.FC = () => {
     }, [ listData ]);
 
     const handleTypeFrequency = useCallback((frquency: string) => {
-        return frquency === 'recorrente' ? '#4E41F0' : '#E44C4E';
+        return frquency === TypeMovement.recurrent ? '#4E41F0' : '#E44C4E';
     }, []);
+
+    const handleFrequencyClick = useCallback((frequency: string) => {
+      const alreadySelected = selectedFrequency.findIndex( item => item === frequency );
+
+      if (alreadySelected >= 0) {
+        const filtered = selectedFrequency.filter( item => item !== frequency );
+
+        setSelectedFrequency(filtered);
+      } else {
+        setSelectedFrequency((prev) => [ ...prev, frequency ]);
+      }
+    }, [ selectedFrequency ]);
 
     useEffect(() => {
       const filteredDate = listData
         .filter(
-          item => compareMonth(item.date, monthSelected) && comparYear(item.date, yearSelected)
+          item => compareMonth(item.date, monthSelected) && compareYear(item.date, yearSelected) && selectedFrequency.includes(item.frequency)
         )
         .map( item => {
           return {
@@ -92,7 +106,7 @@ const List: React.FC = () => {
         });
 
       setData(filteredDate);
-    }, [listData, monthSelected, yearSelected, setData, handleTypeFrequency]);
+    }, [listData, monthSelected, yearSelected, setData, handleTypeFrequency, selectedFrequency]);
 
     useEffect(() => {
       if (years && years.length > 0) {
@@ -109,10 +123,18 @@ const List: React.FC = () => {
             </ContentHeader>
 
             <Filters>
-                <button type="button" className="tag-filter tag-filter-recurrent">
+                <button 
+                  type="button" 
+                  className={ `tag-filter tag-filter-recurrent ${ selectedFrequency.includes(TypeMovement.recurrent) && 'tag-actived' }` } 
+                  onClick={ () => handleFrequencyClick(TypeMovement.recurrent) }
+                >
                     Recorrentes
                 </button>
-                <button type="button" className="tag-filter tag-filter-eventual">
+                <button 
+                  type="button" 
+                  className={ `tag-filter tag-filter-eventual ${ selectedFrequency.includes(TypeMovement.eventual) && 'tag-actived' }` } 
+                  onClick={ () => handleFrequencyClick(TypeMovement.eventual) }
+                >
                     Eventuais
                 </button>
             </Filters>

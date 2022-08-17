@@ -7,13 +7,13 @@ const Toggle: React.FC = () => {
 
   return (
     <Container>
-        <ToggleLabel>Light</ToggleLabel>
-        <ToggleSelector 
-            checked={ isDark } 
-            uncheckedIcon={ false } 
-            checkedIcon={ false } 
-            onChange={ () => setIsDark(!isDark) } />
-        <ToggleLabel>Dark</ToggleLabel>
+      <ToggleLabel>Light</ToggleLabel>
+      <ToggleSelector 
+          checked={ isDark } 
+          uncheckedIcon={ false } 
+          checkedIcon={ false } 
+          onChange={ () => setIsDark(!isDark) } />
+      <ToggleLabel>Dark</ToggleLabel>
     </Container>
   );
 }

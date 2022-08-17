@@ -9,19 +9,19 @@ import Aside from "../Aside";
 import Content from "../Content";
 
 interface Props {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }  
 
 const Layout: React.FC<Props> = ({ children }: Props) => {
-    return (
-        <Grid>
-            <MainHeader />
-            <Aside />
-            <Content>
-                { children }
-            </Content>
-        </Grid>
-    );
+  return (
+    <Grid>
+      <MainHeader />
+      <Aside />
+      <Content>
+          { children }
+      </Content>
+    </Grid>
+  );
 }
 
 export default Layout;

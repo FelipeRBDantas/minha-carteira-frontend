@@ -29,7 +29,7 @@ export const mappingRoutes: Array<IRoute> = [
         icon: null,
         othersideIcon: null,
         auth: true,
-        path: '/list/:type',
+        path: '/list/:movementType',
         othersidePath: null,
         element: <List />,
         submenu: [

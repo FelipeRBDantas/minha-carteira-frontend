@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Container, ToggleLabel, ToggleSelector } from './styles';
 
-const Toggle: React.FC = () => (
+const Toggle: React.FC = () => {
+  const [isDark, setIsDark] = useState<boolean>(false);
+
+  return (
     <Container>
         <ToggleLabel>Light</ToggleLabel>
         <ToggleSelector 
-            checked 
+            checked={ isDark } 
             uncheckedIcon={ false } 
             checkedIcon={ false } 
-            onChange={ () => console.log('mudou') } />
+            onChange={ () => setIsDark(!isDark) } />
         <ToggleLabel>Dark</ToggleLabel>
     </Container>
-);
+  );
+}
 
 export default Toggle;

@@ -44,7 +44,7 @@ const List: React.FC = () => {
   const pageData = useMemo(() => {
     return movementType === ListParams.entryBalance ? {
       title: 'Entradas',
-      lineColor: '#F7931B',
+      lineColor: '#4E41F0',
       data: Gains
     } : {
       title: 'Saídas',

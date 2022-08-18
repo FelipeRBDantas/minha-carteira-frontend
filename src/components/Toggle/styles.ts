@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+// COMPONENTS
+
 import Switch, { ReactSwitchProps } from 'react-switch';
 
 export const Container = styled.div`

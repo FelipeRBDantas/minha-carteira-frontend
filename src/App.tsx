@@ -1,10 +1,16 @@
 import React from "react";
 
+// COMPONENTS
+
 import { ThemeProvider } from "styled-components";
+
+// STYLES
 
 import GlobalStyles from "./styles/GlobalStyles";
 
 import dark from "./styles/themes/dark";
+
+// ROUTES
 
 import Routes from "./routes";
 

@@ -1,6 +1,10 @@
 import React from "react";
 
+// STYLES
+
 import { Grid } from './styles';
+
+// COMPONENTS COMMON
 
 import MainHeader from "../MainHeader";
 

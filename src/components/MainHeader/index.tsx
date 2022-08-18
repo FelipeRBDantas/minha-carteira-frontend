@@ -1,8 +1,14 @@
 import React, { useMemo } from "react";
 
+// STYLES
+
 import { Container, Profile, Welcome, UserName } from './styles';
 
+// COMPONENTS COMMON
+
 import Toggle from '../Toggle';
+
+// UTILS
 
 import { emojis } from "../../utils/stringUtil";
 

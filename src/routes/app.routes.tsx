@@ -2,7 +2,11 @@ import React from "react";
 
 import { Routes, Route } from 'react-router-dom';
 
+// COMPONENTS COMMON
+
 import Layout from "../components/Layout";
+
+// ROUTES
 
 import { mappingRoutes } from "./mapping.routes";
 

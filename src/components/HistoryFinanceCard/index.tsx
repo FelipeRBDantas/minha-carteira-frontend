@@ -1,5 +1,7 @@
 import React from "react";
 
+// STYLES
+
 import { Container, Tag } from './styles';
 
 interface IHistoryFinanceCardProps {

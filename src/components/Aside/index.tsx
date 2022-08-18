@@ -1,12 +1,22 @@
 import React, { useCallback } from "react";
 
+// ASSETS
+
 import logoImg from '../../assets/logo.svg';
+
+// STYLES
 
 import { Container, Header, LogoImg, Title, MenuContainer, MenuItemLink } from './styles';
 
+// ROUTES
+
 import { mappingRoutes } from "../../routes/mapping.routes";
 
+// STORES
+
 import { IRoute } from "../../store/types/types";
+
+// COMPONENTS
 
 import { v4 as uuidv4 } from 'uuid';
 

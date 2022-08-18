@@ -1,24 +1,34 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
+import { useParams } from "react-router-dom";
+
+// COMPONENTS COMMON
+
 import ContentHeader from "../../components/ContentHeader";
 
 import SelectInput from "../../components/SelectInput";
 
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 
+// STORES
+
 import { ListParams, Months, Gains, Expanses, TypeMovement } from "../../store/enums/enum";
+
+import { ISelectInputProps } from "../../store/types/types";
+
+// STYLES
 
 import { Container, Content, Filters } from "./styles";
 
+// COMPONENTS
+
 import { v4 as uuidv4 } from 'uuid';
 
-import { useParams } from "react-router-dom";
+// UTILS
 
 import { formatCurrency } from "../../utils/numberUtil";
 
 import { compareMonth, compareYear, reverseDate } from "../../utils/dateUtil";
-
-import { ISelectInputProps } from "../../store/types/types";
 
 interface IData {
   description: string;

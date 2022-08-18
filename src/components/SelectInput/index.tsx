@@ -1,8 +1,14 @@
 import React from "react";
 
+// COMPONENTS COMMON
+
 import { v4 as uuidv4 } from 'uuid';
 
+// STORES
+
 import { ISelectInputProps } from "../../store/types/types";
+
+// STYLES
 
 import { Container } from './styles';
 

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+// STYLES
+
 import { Container, ToggleLabel, ToggleSelector } from './styles';
 
 const Toggle: React.FC = () => {

@@ -1,12 +1,18 @@
-import { IRoute } from '../store/types/types';
+// COMPONENTS
 
 import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from 'react-icons/md';
+
+// PAGES
 
 import Dashboard from "../pages/Dashboard";
 
 import List from "../pages/List";
 
 import SignIn from "../pages/SignIn";
+
+// STORES
+
+import { IRoute } from '../store/types/types';
 
 import { ListParams } from '../store/enums/enum';
 

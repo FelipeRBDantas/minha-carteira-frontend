@@ -6,11 +6,11 @@ import { Grid } from './styles';
 
 // COMPONENTS COMMON
 
-import MainHeader from "../MainHeader";
+import MainHeader from "@components/MainHeader";
 
-import Aside from "../Aside";
+import Aside from "@components/Aside";
 
-import Content from "../Content";
+import Content from "@components/Content";
 
 interface Props {
   children: React.ReactNode;

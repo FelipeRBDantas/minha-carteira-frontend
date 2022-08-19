@@ -2,15 +2,15 @@ import React, { useMemo, useState } from "react";
 
 // COMPONENTS COMMON
 
-import ContentHeader from "../../components/ContentHeader";
+import ContentHeader from "@components/ContentHeader";
 
-import SelectInput from "../../components/SelectInput";
+import SelectInput from "@components/SelectInput";
 
 // STORES
 
-import { Expanses, Gains, Months } from "../../store/enums/enum";
+import { Expanses, Gains, Months } from "@store/enums/enum";
 
-import { ISelectInputProps } from "../../store/types/types";
+import { ISelectInputProps } from "@store/types/types";
 
 // STYLES
 

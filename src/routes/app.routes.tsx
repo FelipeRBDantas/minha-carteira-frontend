@@ -8,7 +8,7 @@ import Layout from "@components/Layout";
 
 // ROUTES
 
-import { mappingRoutes } from "./mapping.routes";
+import { mappingRoutes } from "@/routes/mapping.routes";
 
 const AppRoutes: React.FC = () => (
   <Layout>

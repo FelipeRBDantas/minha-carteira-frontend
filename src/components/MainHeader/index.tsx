@@ -6,11 +6,11 @@ import { Container, Profile, Welcome, UserName } from './styles';
 
 // COMPONENTS COMMON
 
-import Toggle from '../Toggle';
+import Toggle from '@components/Toggle';
 
 // UTILS
 
-import { emojis } from "../../utils/stringUtil";
+import { emojis } from "@utils/stringUtil";
 
 const MainHeader: React.FC = () => {
   const emoji = useMemo(() => {

@@ -4,17 +4,17 @@ import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from 'react-
 
 // PAGES
 
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "@pages/Dashboard";
 
-import List from "../pages/List";
+import List from "@pages/List";
 
-import SignIn from "../pages/SignIn";
+import SignIn from "@pages/SignIn";
 
 // STORES
 
-import { IRoute } from '../store/types/types';
+import { IRoute } from '@store/types/types';
 
-import { ListParams } from '../store/enums/enum';
+import { ListParams } from '@store/enums/enum';
 
 export const mappingRoutes: Array<IRoute> = [
   {

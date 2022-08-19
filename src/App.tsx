@@ -6,13 +6,13 @@ import { ThemeProvider } from "styled-components";
 
 // STYLES
 
-import GlobalStyles from "./styles/GlobalStyles";
+import GlobalStyles from "@styles/GlobalStyles";
 
-import dark from "./styles/themes/dark";
+import dark from "@styles/themes/dark";
 
 // ROUTES
 
-import Routes from "./routes";
+import Routes from "@/routes";
 
 const App: React.FC = () => {
   return (

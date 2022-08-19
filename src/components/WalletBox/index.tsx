@@ -2,11 +2,11 @@ import React from "react";
 
 import { Container } from './styles';
 
-import dollarImg from '../../assets/dollar.svg';
+import dollarImg from '@assets/dollar.svg';
 
-import arrowUpImg from '../../assets/dollar.svg';
+import arrowUpImg from '@assets/dollar.svg';
 
-import arrowDownImg from '../../assets/dollar.svg';
+import arrowDownImg from '@assets/dollar.svg';
 
 interface IWalletBoxProps {
   title: string;

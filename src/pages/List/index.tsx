@@ -86,8 +86,8 @@ const List: React.FC = () => {
     });
   }, [ pageData ]);
 
-  const handleTypeFrequency = useCallback((frquency: string) => {
-    return frquency === TypeMovement.recurrent ? '#4E41F0' : '#E44C4E';
+  const handleTypeFrequency = useCallback((frequency: string) => {
+    return frequency === TypeMovement.recurrent ? '#4E41F0' : '#E44C4E';
   }, []);
 
   const handleFrequencyClick = useCallback((frequency: string) => {

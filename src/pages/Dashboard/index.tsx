@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 // COMPONENTS COMMON
 
@@ -19,6 +19,10 @@ import happyImg from '@assets/happy.svg';
 import { Expanses, Gains, Months } from "@store/enums/enum";
 
 import { ISelectInputProps } from "@store/types/types";
+
+// UTILS
+
+import { compareMonth, compareYear } from "@/utils/dateUtil";
 
 // STYLES
 
@@ -53,6 +57,29 @@ const Dashboard: React.FC = () => {
     });
   }, []);
 
+  const totalExpanses = useMemo(() => {
+    return Expanses
+      .filter( item => compareMonth(item.date, monthSelected) && compareYear(item.date, yearSelected) )
+      .reduce((previousValue, currentValue) => previousValue + Number(currentValue.amount), 0);
+  }, [ monthSelected, yearSelected ]);
+
+  const totalGains = useMemo(() => {
+    return Gains
+      .filter( item => compareMonth(item.date, monthSelected) && compareYear(item.date, yearSelected) )
+      .reduce((previousValue, currentValue) => previousValue + Number(currentValue.amount), 0);
+  }, [ monthSelected, yearSelected ]);
+
+  const totalBalance = useMemo(() => {
+    return totalGains - totalExpanses;
+  }, [ totalExpanses, totalGains ]);
+
+  useEffect(() => {
+    if (years && years.length > 0) {
+      setYearSelected(years[0].value.toString());
+      setMonthSelected(Months[0].value.toString());
+    }
+  }, [ years ]);
+
   return (
     <Container>
       <ContentHeader title="Dashboard" lineColor='#F7931B'>
@@ -73,21 +100,21 @@ const Dashboard: React.FC = () => {
       <Content>
         <WalletBox 
           title="saldo"
-          amount={ 150.00 }
+          amount={ totalBalance }
           footerLabel={ "atualizado com base nas entradas e saídas" }
           icon="dolar"
           color="#4E41F0"
         />
         <WalletBox 
           title="entradas"
-          amount={ 5000.00 }
+          amount={ totalGains }
           footerLabel={ "atualizado com base nas entradas e saídas" }
           icon="arrowUp"
           color="#F7931B"
         />
         <WalletBox 
           title="saídas"
-          amount={ 4850.00 }
+          amount={ totalExpanses }
           footerLabel={ "atualizado com base nas entradas e saídas" }
           icon="arrowDown"
           color="#E44C4E"

@@ -8,6 +8,12 @@ import SelectInput from "@components/SelectInput";
 
 import WalletBox from '@components/WalletBox';
 
+import MessageBox from '@components/MessageBox';
+
+// ASSETS
+
+import happyImg from '@assets/happy.svg';
+
 // STORES
 
 import { Expanses, Gains, Months } from "@store/enums/enum";
@@ -85,6 +91,13 @@ const Dashboard: React.FC = () => {
           footerLabel={ "atualizado com base nas entradas e saídas" }
           icon="arrowDown"
           color="#E44C4E"
+        />
+
+        <MessageBox 
+          title="Muito bem!"
+          description="Sua carteira está positiva!"
+          footerText="Continue assim. Considere investir o seu saldo."
+          icon={ happyImg }
         />
       </Content>
     </Container>

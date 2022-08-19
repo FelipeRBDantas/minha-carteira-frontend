@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 
 // ASSETS
 
-import logoImg from '../../assets/logo.svg';
+import logoImg from '@assets/logo.svg';
 
 // STYLES
 
@@ -10,11 +10,11 @@ import { Container, Header, LogoImg, Title, MenuContainer, MenuItemLink } from '
 
 // ROUTES
 
-import { mappingRoutes } from "../../routes/mapping.routes";
+import { mappingRoutes } from "@routes/mapping.routes";
 
 // STORES
 
-import { IRoute } from "../../store/types/types";
+import { IRoute } from "@store/types/types";
 
 // COMPONENTS
 

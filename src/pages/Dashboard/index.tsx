@@ -10,6 +10,8 @@ import WalletBox from '@components/WalletBox';
 
 import MessageBox from '@components/MessageBox';
 
+import PieChart from '@components/PieChart';
+
 // ASSETS
 
 import happyImg from '@assets/happy.svg';
@@ -155,6 +157,8 @@ const Dashboard: React.FC = () => {
           footerText={ message.footerText }
           icon={ message.icon }
         />
+
+        <PieChart />
       </Content>
     </Container>
   );

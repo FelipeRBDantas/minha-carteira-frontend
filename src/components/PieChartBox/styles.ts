@@ -15,7 +15,8 @@ export const Container = styled.div`
 `;
 
 export const SideLeft = styled.aside`
-  padding: 30px 20px;
+  padding: 30px 0px;
+  margin-left: 20px;
 
   > h2 {
     margin-bottom: 20px;
@@ -49,12 +50,16 @@ export const Legend = styled.li<ILegendProps>`
   
   > div {
     background-color: ${ props => props.color };
-    width: 40px;
+    width: 60px;
     height: 40px;
     border-radius: 5px;
     font-size: 18px;
     text-align: center;
     line-height: 40px;
+
+    &::after {
+      content: '%';
+    }
   }
 
   > span {
@@ -63,5 +68,7 @@ export const Legend = styled.li<ILegendProps>`
 `;
 
 export const SideRight = styled.main`
-
+  display: flex;
+  flex: 1;
+  justify-content: center;
 `;

@@ -10,7 +10,7 @@ import WalletBox from '@components/WalletBox';
 
 import MessageBox from '@components/MessageBox';
 
-import PieChart from '@components/PieChart';
+import PieChartBox from '@/components/PieChartBox';
 
 // ASSETS
 
@@ -104,6 +104,31 @@ const Dashboard: React.FC = () => {
     }
   }, [ totalBalance ]);
 
+  const relationExpansesVersusGains = useMemo(() => {
+    const total = totalGains + totalExpanses;
+
+    const percentGains = (totalGains / total) * 100;
+
+    const percentExpanses = (totalExpanses / total) * 100;
+
+    const data = [
+      {
+        name: "Entradas",
+        color: "#E44C4E",
+        value: totalGains,
+        percent: Number(percentGains.toFixed(1))
+      },
+      {
+        name: "Saídas",
+        color: "#F7931B",
+        value: totalExpanses,
+        percent: Number(percentExpanses.toFixed(1))
+      }
+    ];
+
+    return data;
+  }, [ totalExpanses, totalGains ]);
+
   useEffect(() => {
     if (years && years.length > 0) {
       setYearSelected(years[0].value.toString());
@@ -158,7 +183,7 @@ const Dashboard: React.FC = () => {
           icon={ message.icon }
         />
 
-        <PieChart />
+        <PieChartBox data={ relationExpansesVersusGains } />
       </Content>
     </Container>
   );

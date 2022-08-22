@@ -14,7 +14,7 @@ import HistoryFinanceCard from "@components/HistoryFinanceCard";
 
 import { ListParams, Months, Gains, Expanses, TypeMovement } from "@store/enums/enum";
 
-import { ISelectInputProps } from "@store/types/types";
+import { ISelectInputProps } from "@store/types";
 
 // STYLES
 

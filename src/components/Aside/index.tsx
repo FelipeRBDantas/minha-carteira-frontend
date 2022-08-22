@@ -14,7 +14,7 @@ import { mappingRoutes } from "@routes/mapping.routes";
 
 // STORES
 
-import { IRoute } from "@store/types/types";
+import { IRoute } from "@store/types";
 
 // COMPONENTS
 

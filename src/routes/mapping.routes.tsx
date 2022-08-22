@@ -12,7 +12,7 @@ import SignIn from "@pages/SignIn";
 
 // STORES
 
-import { IRoute } from '@store/types/types';
+import { IRoute } from '@store/types';
 
 import { ListParams } from '@store/enums/enum';
 

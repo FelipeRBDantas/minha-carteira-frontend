@@ -10,7 +10,7 @@ import WalletBox from '@components/WalletBox';
 
 import MessageBox from '@components/MessageBox';
 
-import PieChartBox from '@/components/PieChartBox';
+import PieChartBox from '@components/PieChartBox';
 
 // ASSETS
 
@@ -24,11 +24,11 @@ import grinningImg from '@assets/grinning.svg';
 
 import { Expanses, Gains, Months } from "@store/enums/enum";
 
-import { ISelectInputProps } from "@store/types/types";
+import { ISelectInputProps } from "@store/types";
 
 // UTILS
 
-import { compareMonth, compareYear } from "@/utils/dateUtil";
+import { compareMonth, compareYear } from "@utils/dateUtil";
 
 // STYLES
 

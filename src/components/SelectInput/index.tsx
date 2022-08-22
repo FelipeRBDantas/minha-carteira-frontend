@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // STORES
 
-import { ISelectInputProps } from "@store/types/types";
+import { ISelectInputProps } from "@store/types";
 
 // STYLES
 

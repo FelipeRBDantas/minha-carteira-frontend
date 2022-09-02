@@ -12,6 +12,8 @@ import MessageBox from '@components/MessageBox';
 
 import PieChartBox from '@components/PieChartBox';
 
+import HistoryBox from '@components/HistoryBox';
+
 // ASSETS
 
 import happyImg from '@assets/happy.svg';
@@ -129,6 +131,62 @@ const Dashboard: React.FC = () => {
     return data;
   }, [ totalExpanses, totalGains ]);
 
+  const historyData = useMemo(() => {
+    return Months
+      .map((_, month) => {
+        let amountEntry = 0;
+
+        Gains.forEach(gain => {
+          const date = new Date(gain.date);
+
+          const gainMonth = date.getMonth();
+
+          const gainYear = date.getFullYear();
+
+          if (gainMonth === month && gainYear === Number(yearSelected)) {
+            try {
+              amountEntry += Number(gain.amount);
+            } catch {
+              throw new Error('amountEntry is invalid. amountEntry must be valid number.');
+            }
+          }
+        });
+
+        let amountOutput = 0;
+
+        Expanses.forEach(expanse => {
+          const date = new Date(expanse.date);
+
+          const expanseMonth = date.getMonth();
+
+          const expanseYear = date.getFullYear();
+
+          if (expanseMonth === month && expanseYear === Number(yearSelected)) {
+            try {
+              amountOutput += Number(expanse.amount);
+            } catch {
+              throw new Error('amountOutput is invalid. amountOutput must be valid number.');
+            }
+          }
+        });
+
+        return {
+          monthNumber: month,
+          month: Months[month].label.substring(0, 3),
+          amountEntry,
+          amountOutput
+        };
+      })
+      .filter(item => {
+        const currentMonth = new Date().getMonth();
+
+        const currentYear = new Date().getFullYear();
+
+        return (Number(yearSelected) === currentYear && item.monthNumber <= currentMonth) || 
+          (Number(yearSelected) < currentYear);
+      });
+  }, [ yearSelected ]);
+
   useEffect(() => {
     if (years && years.length > 0) {
       setYearSelected(years[0].value.toString());
@@ -184,6 +242,8 @@ const Dashboard: React.FC = () => {
         />
 
         <PieChartBox data={ relationExpansesVersusGains } />
+
+        <HistoryBox data={ historyData } lineColorAmountEntry="#F7931B" lineColorAmountOutput="#E44C4E" />
       </Content>
     </Container>
   );

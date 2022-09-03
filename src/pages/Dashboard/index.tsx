@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
 
         return {
           monthNumber: month,
-          month: Months[month].label.substring(0, 3),
+          month: Months[month].label.substr(0, 3),
           amountEntry,
           amountOutput
         };

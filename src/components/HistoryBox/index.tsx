@@ -1,5 +1,9 @@
 import React from "react";
 
+// UTILS
+
+import { formatCurrency } from "@/utils/numberUtil";
+
 // COMPONENTS
 
 import { 
@@ -13,7 +17,13 @@ import {
 
 // STYLES
 
-import { Container, ChartContainer } from './styles';
+import { 
+  Container, 
+  ChartContainer, 
+  Header, 
+  LegendContainer, 
+  Legend 
+} from './styles';
 
 interface IHistoryBoxProps {
   data: {
@@ -27,14 +37,28 @@ interface IHistoryBoxProps {
 
 const HistoryBox: React.FC<IHistoryBoxProps> = ({ data, lineColorAmountEntry, lineColorAmountOutput }: IHistoryBoxProps) => (
   <Container>
-    <h2>Histórico de Saldo</h2>
+    <Header>
+      <h2>Histórico de Saldo</h2>
+
+      <LegendContainer>
+        <Legend color={ lineColorAmountEntry }>
+          <div></div>
+          <span>Entradas</span>
+        </Legend>
+
+        <Legend color={ lineColorAmountOutput }>
+          <div></div>
+          <span>Saídas</span>
+        </Legend>
+      </LegendContainer>
+    </Header>
 
     <ChartContainer>
       <ResponsiveContainer>
         <LineChart data={ data } margin={ { top: 5, right: 20, left: 20, bottom: 5 } }>
           <CartesianGrid strokeDasharray="3 3" stroke="#cecece" />
           <XAxis dataKey="month" stroke="#cecece" />
-          <Tooltip />
+          <Tooltip formatter={ formatCurrency } />
           <Line 
             type="monotone" 
             dataKey="amountEntry" 

@@ -24,7 +24,7 @@ import grinningImg from '@assets/grinning.svg';
 
 // STORES
 
-import { Expanses, Gains, Months } from "@store/enums/enum";
+import { Expanses, Gains, Months, TypeMovement } from "@store/enums/enum";
 
 import { ISelectInputProps } from "@store/types";
 
@@ -186,6 +186,53 @@ const Dashboard: React.FC = () => {
           (Number(yearSelected) < currentYear);
       });
   }, [ yearSelected ]);
+
+  const relationExpansesRecurrentVersusEventual = useMemo(() => {
+    let amountRecurrent = 0;
+
+    let amountEventual = 0;
+
+    Expanses
+      .filter((expanse) => {
+        const date = new Date(expanse.date);
+
+        const month = date.getMonth();
+        
+        const year = date.getFullYear();
+
+        return month === Number(monthSelected) && year === Number(yearSelected);
+      })
+      .forEach((expanse) => {
+        if (expanse.frequency === TypeMovement.recurrent) {
+          return amountRecurrent += Number(expanse.amount);
+        }
+
+        if (expanse.frequency === TypeMovement.eventual) {
+          return amountEventual += Number(expanse.amount);
+        }
+      });
+
+      const total = amountRecurrent + amountEventual;
+
+      const percentRecurrent = Number((amountRecurrent / total) * 100).toFixed(1);
+
+      const percentEventual = Number((amountEventual / total) * 100).toFixed(1);
+
+      return [
+        {
+          name: 'Recorrentes',
+          amount: amountRecurrent,
+          percent: Number(percentRecurrent),
+          color: "#F7931B"
+        },
+        {
+          name: 'Eventuais',
+          amount: amountEventual,
+          percent: Number(percentEventual),
+          color: "#E44C4E"
+        }
+      ];
+  }, [ monthSelected, yearSelected ]);
 
   useEffect(() => {
     if (years && years.length > 0) {

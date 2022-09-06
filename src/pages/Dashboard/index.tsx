@@ -30,6 +30,8 @@ import { ISelectInputProps } from "@store/types";
 
 // UTILS
 
+import { average } from "@utils/numberUtil";
+
 import { compareMinorOrEqualMonth, compareMinorYear, compareMonth, compareYear } from "@utils/dateUtil";
 
 // STYLES
@@ -109,9 +111,9 @@ const Dashboard: React.FC = () => {
   const relationExpansesVersusGains = useMemo(() => {
     const total = totalGains + totalExpanses;
 
-    const percentGains = (totalGains / total) * 100;
+    const percentGains = Number(average(totalGains, total));
 
-    const percentExpanses = (totalExpanses / total) * 100;
+    const percentExpanses = Number(average(totalExpanses, total));
 
     const data = [
       {
@@ -156,15 +158,7 @@ const Dashboard: React.FC = () => {
     let amountEventual = 0;
 
     Expanses
-      .filter((expanse) => {
-        const date = new Date(expanse.date);
-
-        const month = date.getMonth();
-        
-        const year = date.getFullYear();
-
-        return month === Number(monthSelected) && year === Number(yearSelected);
-      })
+      .filter((item) => compareMonth(item.date, (Number(monthSelected) + 1).toString()) && compareYear(item.date, yearSelected))
       .forEach((expanse) => {
         if (expanse.frequency === TypeMovement.recurrent) {
           return amountRecurrent += Number(expanse.amount);
@@ -177,9 +171,9 @@ const Dashboard: React.FC = () => {
 
       const total = amountRecurrent + amountEventual;
 
-      const percentRecurrent = Number((amountRecurrent / total) * 100).toFixed(1);
-
-      const percentEventual = Number((amountEventual / total) * 100).toFixed(1);
+      const percentRecurrent = average(amountRecurrent, total);
+      
+      const percentEventual = average(amountEventual, total);
 
       return [
         {

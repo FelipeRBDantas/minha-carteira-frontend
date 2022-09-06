@@ -12,3 +12,9 @@ export const formatCurrency = (value: number | string): string => {
     }
   );
 };
+
+export const average = (value: number, total: number): string => {
+  if (!value) return '';
+
+  return ((value / total) * 100).toFixed(1);
+};

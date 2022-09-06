@@ -30,7 +30,9 @@ import { ISelectInputProps } from "@store/types";
 
 // UTILS
 
-import { compareMonth, compareYear } from "@utils/dateUtil";
+import { average } from "@utils/numberUtil";
+
+import { compareMinorOrEqualMonth, compareMinorYear, compareMonth, compareYear } from "@utils/dateUtil";
 
 // STYLES
 
@@ -109,9 +111,9 @@ const Dashboard: React.FC = () => {
   const relationExpansesVersusGains = useMemo(() => {
     const total = totalGains + totalExpanses;
 
-    const percentGains = (totalGains / total) * 100;
+    const percentGains = Number(average(totalGains, total));
 
-    const percentExpanses = (totalExpanses / total) * 100;
+    const percentExpanses = Number(average(totalExpanses, total));
 
     const data = [
       {
@@ -134,41 +136,11 @@ const Dashboard: React.FC = () => {
   const historyData = useMemo(() => {
     return Months
       .map((_, month) => {
-        let amountEntry = 0;
+        let amountEntry = Gains.filter( item => compareMonth(item.date, String(month + 1)) && compareYear(item.date, yearSelected) )
+          .reduce((previousValue, currentValue) => previousValue + Number(currentValue.amount), 0);
 
-        Gains.forEach(gain => {
-          const date = new Date(gain.date);
-
-          const gainMonth = date.getMonth();
-
-          const gainYear = date.getFullYear();
-
-          if (gainMonth === month && gainYear === Number(yearSelected)) {
-            try {
-              amountEntry += Number(gain.amount);
-            } catch {
-              throw new Error('amountEntry is invalid. amountEntry must be valid number.');
-            }
-          }
-        });
-
-        let amountOutput = 0;
-
-        Expanses.forEach(expanse => {
-          const date = new Date(expanse.date);
-
-          const expanseMonth = date.getMonth();
-
-          const expanseYear = date.getFullYear();
-
-          if (expanseMonth === month && expanseYear === Number(yearSelected)) {
-            try {
-              amountOutput += Number(expanse.amount);
-            } catch {
-              throw new Error('amountOutput is invalid. amountOutput must be valid number.');
-            }
-          }
-        });
+        let amountOutput = Expanses.filter( item => compareMonth(item.date, String(month + 1)) && compareYear(item.date, yearSelected) )
+          .reduce((previousValue, currentValue) => previousValue + Number(currentValue.amount), 0);
 
         return {
           monthNumber: month,
@@ -177,14 +149,7 @@ const Dashboard: React.FC = () => {
           amountOutput
         };
       })
-      .filter(item => {
-        const currentMonth = new Date().getMonth();
-
-        const currentYear = new Date().getFullYear();
-
-        return (Number(yearSelected) === currentYear && item.monthNumber <= currentMonth) || 
-          (Number(yearSelected) < currentYear);
-      });
+      .filter( item => (compareMinorOrEqualMonth(null, String(item.monthNumber)) && compareYear(null, yearSelected)) || compareMinorYear(null, yearSelected) );
   }, [ yearSelected ]);
 
   const relationExpansesRecurrentVersusEventual = useMemo(() => {
@@ -193,15 +158,7 @@ const Dashboard: React.FC = () => {
     let amountEventual = 0;
 
     Expanses
-      .filter((expanse) => {
-        const date = new Date(expanse.date);
-
-        const month = date.getMonth();
-        
-        const year = date.getFullYear();
-
-        return month === Number(monthSelected) && year === Number(yearSelected);
-      })
+      .filter((item) => compareMonth(item.date, (Number(monthSelected) + 1).toString()) && compareYear(item.date, yearSelected))
       .forEach((expanse) => {
         if (expanse.frequency === TypeMovement.recurrent) {
           return amountRecurrent += Number(expanse.amount);
@@ -214,9 +171,9 @@ const Dashboard: React.FC = () => {
 
       const total = amountRecurrent + amountEventual;
 
-      const percentRecurrent = Number((amountRecurrent / total) * 100).toFixed(1);
-
-      const percentEventual = Number((amountEventual / total) * 100).toFixed(1);
+      const percentRecurrent = average(amountRecurrent, total);
+      
+      const percentEventual = average(amountEventual, total);
 
       return [
         {

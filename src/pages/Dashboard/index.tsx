@@ -30,7 +30,7 @@ import { ISelectInputProps } from "@store/types";
 
 // UTILS
 
-import { compareMonth, compareYear } from "@utils/dateUtil";
+import { compareMinorOrEqualMonth, compareMinorYear, compareMonth, compareYear } from "@utils/dateUtil";
 
 // STYLES
 
@@ -134,41 +134,11 @@ const Dashboard: React.FC = () => {
   const historyData = useMemo(() => {
     return Months
       .map((_, month) => {
-        let amountEntry = 0;
+        let amountEntry = Gains.filter( item => compareMonth(item.date, String(month + 1)) && compareYear(item.date, yearSelected) )
+          .reduce((previousValue, currentValue) => previousValue + Number(currentValue.amount), 0);
 
-        Gains.forEach(gain => {
-          const date = new Date(gain.date);
-
-          const gainMonth = date.getMonth();
-
-          const gainYear = date.getFullYear();
-
-          if (gainMonth === month && gainYear === Number(yearSelected)) {
-            try {
-              amountEntry += Number(gain.amount);
-            } catch {
-              throw new Error('amountEntry is invalid. amountEntry must be valid number.');
-            }
-          }
-        });
-
-        let amountOutput = 0;
-
-        Expanses.forEach(expanse => {
-          const date = new Date(expanse.date);
-
-          const expanseMonth = date.getMonth();
-
-          const expanseYear = date.getFullYear();
-
-          if (expanseMonth === month && expanseYear === Number(yearSelected)) {
-            try {
-              amountOutput += Number(expanse.amount);
-            } catch {
-              throw new Error('amountOutput is invalid. amountOutput must be valid number.');
-            }
-          }
-        });
+        let amountOutput = Expanses.filter( item => compareMonth(item.date, String(month + 1)) && compareYear(item.date, yearSelected) )
+          .reduce((previousValue, currentValue) => previousValue + Number(currentValue.amount), 0);
 
         return {
           monthNumber: month,
@@ -177,14 +147,7 @@ const Dashboard: React.FC = () => {
           amountOutput
         };
       })
-      .filter(item => {
-        const currentMonth = new Date().getMonth();
-
-        const currentYear = new Date().getFullYear();
-
-        return (Number(yearSelected) === currentYear && item.monthNumber <= currentMonth) || 
-          (Number(yearSelected) < currentYear);
-      });
+      .filter( item => (compareMinorOrEqualMonth(null, String(item.monthNumber)) && compareYear(null, yearSelected)) || compareMinorYear(null, yearSelected) );
   }, [ yearSelected ]);
 
   const relationExpansesRecurrentVersusEventual = useMemo(() => {

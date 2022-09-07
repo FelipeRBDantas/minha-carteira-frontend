@@ -14,6 +14,8 @@ import PieChartBox from '@components/PieChartBox';
 
 import HistoryBox from '@components/HistoryBox';
 
+import BarChartBox from '@components/BarChartBox';
+
 // ASSETS
 
 import happyImg from '@assets/happy.svg';
@@ -191,6 +193,45 @@ const Dashboard: React.FC = () => {
       ];
   }, [ monthSelected, yearSelected ]);
 
+  const relationGainsRecurrentVersusEventual = useMemo(() => {
+    let amountRecurrent = 0;
+
+    let amountEventual = 0;
+
+    Gains
+      .filter((item) => compareMonth(item.date, (Number(monthSelected) + 1).toString()) && compareYear(item.date, yearSelected))
+      .forEach((gain) => {
+        if (gain.frequency === TypeMovement.recurrent) {
+          return amountRecurrent += Number(gain.amount);
+        }
+
+        if (gain.frequency === TypeMovement.eventual) {
+          return amountEventual += Number(gain.amount);
+        }
+      });
+
+      const total = amountRecurrent + amountEventual;
+
+      const percentRecurrent = average(amountRecurrent, total);
+      
+      const percentEventual = average(amountEventual, total);
+
+      return [
+        {
+          name: 'Recorrentes',
+          amount: amountRecurrent,
+          percent: Number(percentRecurrent),
+          color: "#F7931B"
+        },
+        {
+          name: 'Eventuais',
+          amount: amountEventual,
+          percent: Number(percentEventual),
+          color: "#E44C4E"
+        }
+      ];
+  }, [ monthSelected, yearSelected ]);
+
   useEffect(() => {
     if (years && years.length > 0) {
       setYearSelected(years[0].value.toString());
@@ -248,6 +289,10 @@ const Dashboard: React.FC = () => {
         <PieChartBox data={ relationExpansesVersusGains } />
 
         <HistoryBox data={ historyData } lineColorAmountEntry="#F7931B" lineColorAmountOutput="#E44C4E" />
+
+        <BarChartBox title="Saídas" data={ relationExpansesRecurrentVersusEventual } />
+
+        <BarChartBox title="Entradas" data={ relationGainsRecurrentVersusEventual } />
       </Content>
     </Container>
   );

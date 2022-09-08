@@ -24,6 +24,8 @@ import sadImg from '@assets/sad.svg';
 
 import grinningImg from '@assets/grinning.svg';
 
+import opsImg from '@assets/grinning.svg';
+
 // STORES
 
 import { Expanses, Gains, Months, TypeMovement } from "@store/enums/enum";
@@ -93,7 +95,14 @@ const Dashboard: React.FC = () => {
         footerText: "Verifique seus gastos e tente cortar algumas coisas desnecessárias.",
         icon: sadImg
       };
-    } else if (totalBalance === 0) {
+    } else if (totalBalance === 0 && totalGains === 0 && totalExpanses === 0) {
+      return {
+        title: "Ops!",
+        description: "Neste mês, não há registro de entradas ou saídas.",
+        footerText: "Parece que você não fez nenhum registro no mês e ano selecionado.",
+        icon: opsImg
+      };
+    } else if (totalBalance === 0 && totalGains > 0 && totalExpanses > 0) {
       return {
         title: "Ufaa!",
         description: "Neste mês, você gastou exatamente o que ganhou.",
@@ -108,7 +117,7 @@ const Dashboard: React.FC = () => {
         icon: happyImg
       };
     }
-  }, [ totalBalance ]);
+  }, [ totalBalance, totalExpanses, totalGains ]);
 
   const relationExpansesVersusGains = useMemo(() => {
     const total = totalGains + totalExpanses;

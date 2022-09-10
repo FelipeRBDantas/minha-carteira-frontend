@@ -8,8 +8,13 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-  Cell
+  Cell,
+  Tooltip
 } from 'recharts';
+
+// UTILS
+
+import { formatCurrency } from "@/utils/numberUtil";
 
 // STYLES
 
@@ -63,7 +68,7 @@ const BarChartBox: React.FC<IBarChartBoxProps> = ({ title, data }) => {
             }}
             barSize={80}
           >
-            <Bar dataKey="amount">
+            <Bar dataKey="amount" name="Valor">
               { data.map((indicator) => (
                 <Cell 
                   key={ indicator.name }
@@ -72,6 +77,8 @@ const BarChartBox: React.FC<IBarChartBoxProps> = ({ title, data }) => {
                 />
               )) }
             </Bar>
+
+            <Tooltip cursor={{ fill: 'none' }} formatter={ formatCurrency } />
           </BarChart>
         </ResponsiveContainer>
       </SideRight>

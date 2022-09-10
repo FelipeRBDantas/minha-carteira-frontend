@@ -1,3 +1,17 @@
+import { ApiState } from "@store/modules/api/types";
+
+import { AppState } from "@store/modules/app/types";
+
+export interface ReducerAction {
+  type: string;
+  payload: any;
+}
+
+export interface ApplicationState {
+  api: ApiState;
+  app: AppState;
+}
+
 export interface ISelectInputProps {
   options: {
       value: string | number;

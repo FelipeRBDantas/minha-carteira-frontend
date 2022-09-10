@@ -1,9 +1,9 @@
 import { all, fork } from 'redux-saga/effects';
 
-import api from '@store/modules/api/rootSagas';
+import endPoints from '@store/modules/api/endPoints/rootSagas';
 
 export default function* rootSaga(): Generator<any> {
   return yield all([
-    fork(api)
+    fork(endPoints),
   ]);
 }

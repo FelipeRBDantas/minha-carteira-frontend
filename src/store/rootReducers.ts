@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { userReducer } from '@store/modules/user/reducer';
+import api from '@store/modules/api/rootReducers';
+
+import app from '@store/modules/app/rootReducers';
 
 export default combineReducers({
-  user: userReducer
+  api,
+  app
 });

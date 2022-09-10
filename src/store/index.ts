@@ -4,9 +4,9 @@ import createSagaMiddleware from '@redux-saga/core';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import rootReducer from '@/store/rootReducers';
+import rootReducer from '@store/rootReducers';
 
-import rootSaga from '@/store/rootSagas';
+import rootSaga from '@store/rootSagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,7 +23,3 @@ export default store;
 export type RootState = ReturnType<typeof rootReducer>;
 
 export type AppDispatch = typeof store.dispatch;
-
-export * from '@store/rootActions';
-
-export * from '@store/types';

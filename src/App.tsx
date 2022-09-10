@@ -8,15 +8,20 @@ import { ThemeProvider } from "styled-components";
 
 import GlobalStyles from "@styles/GlobalStyles";
 
-import dark from "@styles/themes/dark";
-
 // ROUTES
 
 import Routes from "@/routes";
 
+// STORES
+
+import { useSelector } from "react-redux";
+import { ApplicationState } from "./store/types";
+
 const App: React.FC = () => {
+  const { theme } = useSelector((state: ApplicationState) => state.app.themes);
+
   return (
-    <ThemeProvider theme={dark}>
+    <ThemeProvider theme={ theme }>
       <GlobalStyles />
       <Routes />
     </ThemeProvider>

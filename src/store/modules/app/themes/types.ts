@@ -5,7 +5,7 @@ export interface ThemeState {
 }
 
 export interface ThemeRequest {
-  theme: string[];
+  theme: ITheme;
 }
 
 export interface ITheme {

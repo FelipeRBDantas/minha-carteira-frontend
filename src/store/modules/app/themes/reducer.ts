@@ -16,7 +16,7 @@ export const themesReducer = (state = initialState, action: ReducerAction) : The
     case ADD_THEME:
       return {
         ...state,
-        theme: action.payload,
+        theme: action.payload.theme,
       };
 
     default:

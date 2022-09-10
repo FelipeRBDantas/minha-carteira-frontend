@@ -5,7 +5,7 @@ import {
   ADD_THEME,
 } from '@store/modules/app/themes/types';
 
-export function addNotifications(data: ThemeRequest) {
+export function addTheme(data: ThemeRequest) {
   store.dispatch({
     type: ADD_THEME,
     payload: data,

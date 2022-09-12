@@ -8,6 +8,8 @@ import { ApplicationState } from "@store/types";
 
 import { addTheme } from "@store/modules/app/themes/action";
 
+import { ITheme } from "@/store/modules/app/themes/types";
+
 // STYLES
 
 import { Container, Profile, Welcome, UserName } from './styles';
@@ -27,15 +29,31 @@ import { emojis } from "@utils/stringUtil";
 const MainHeader: React.FC = () => {
   const { theme } = useSelector((state: ApplicationState) => state.app.themes);
 
-  const [ darkTheme, setDarkTheme ] = useState(() => theme.title === 'dark' ? true : false);
+  const [ isTheme, setIsTheme ] = useState<ITheme>(() => {
+    const themeSaved = localStorage.getItem('@minha-carteira:theme');
+
+    if (themeSaved) {
+      return JSON.parse(themeSaved);
+    } else if (theme) {
+      return theme;
+    } else {
+      return dark;
+    }
+  });
 
   const handleChangeTheme = () => {
-    setDarkTheme(!darkTheme);
+    if (isTheme.title === 'light') {
+      setIsTheme(dark);
 
-    if (!darkTheme) {
       addTheme({ theme: { ...dark } });
+
+      localStorage.setItem('@minha-carteira:theme', JSON.stringify(dark));
     } else {
+      setIsTheme(light);
+
       addTheme({ theme: { ...light } });
+
+      localStorage.setItem('@minha-carteira:theme', JSON.stringify(light));
     }
   }
 
@@ -50,7 +68,7 @@ const MainHeader: React.FC = () => {
       <Toggle
         labelLeft="Light"
         labelRight="Dark"
-        checked={ darkTheme }
+        checked={ isTheme.title === 'dark' }
         onChange={ handleChangeTheme }
       />
 

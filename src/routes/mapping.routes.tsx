@@ -63,7 +63,7 @@ export const mappingRoutes: Array<IRoute> = [
     othersideTitle: 'Sair',
     icon: null,
     othersideIcon: <MdExitToApp />,
-    auth: true,
+    auth: false,
     path: '/login',
     othersidePath: '/login',
     element: <SignIn />,

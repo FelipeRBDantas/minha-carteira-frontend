@@ -15,6 +15,7 @@ import Routes from "@/routes";
 // STORES
 
 import { useSelector } from "react-redux";
+
 import { ApplicationState } from "./store/types";
 
 const App: React.FC = () => {

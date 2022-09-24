@@ -19,7 +19,7 @@ const Routes: React.FC = () => {
 
   return (
     <BrowserRouter>
-      { postLogin && !postLogin.isLogged ? 
+      { postLogin && postLogin.isLogged ? 
         <AppRoutes /> :
         <AuthRoutes />
       }

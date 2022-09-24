@@ -7,39 +7,44 @@ import {
   PostLoginType
 } from '@store/modules/api/login/postLogin/types';
 
-import { ReducerAction } from '@store/types';
+import { ReducerAction } from '@store/modules/api/login/postLogin/types';
 
 export function postLoginRequest(payload: PostLoginType): ReducerAction {
   return {
     type: POST_LOGIN_REQUEST,
-    payload
+    payload,
+    formData: { ...payload }
   };
 }
 
 export function postLoginSuccess(payload: object): ReducerAction {
   return {
     type: POST_LOGIN_SUCCESS,
-    payload
+    payload,
+    formData: null
   };
 }
 
 export function postLoginFailure(payload: object): ReducerAction {
   return {
     type: POST_LOGIN_FAILURE,
-    payload
+    payload,
+    formData: null
   };
 }
 
 export function postLoginClear(): ReducerAction {
   return {
     type: POST_LOGIN_CLEAR,
-    payload: null
+    payload: null,
+    formData: null
   };
 }
 
 export function logout(): ReducerAction {
   return {
     type: LOGOUT,
-    payload: null
+    payload: null,
+    formData: null
   };
 }

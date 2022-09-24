@@ -1,10 +1,10 @@
 import { takeLatest, all, call, put } from 'redux-saga/effects';
 
-import { PostLoginType, POST_LOGIN_REQUEST } from '@store/modules/api/login/postLogin/types';
+import { PostLoginData, PostLoginType, POST_LOGIN_REQUEST } from '@store/modules/api/login/postLogin/types';
 
 import { postLoginSuccess, postLoginFailure } from '@store/modules/api/login/postLogin/action';
 
-import { ReducerAction } from '@store/types';
+import { ReducerAction } from '@store/modules/api/login/postLogin/types';
 
 import api, { APIResponse } from '@services/api';
 
@@ -31,7 +31,7 @@ export function* request(action: ReducerAction) {
     yield call(postLoginRequest, action);
 
     if (responseData.status === 200) {
-      const postLoginType : PostLoginType = responseData.data;
+      const postLoginType : PostLoginData = responseData.data;
 
       yield put(postLoginSuccess(postLoginType));
     } else {

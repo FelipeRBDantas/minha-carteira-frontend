@@ -15,11 +15,11 @@ import AuthRoutes from "@routes/auth.routes";
 import { ApplicationState } from "@store/types";
 
 const Routes: React.FC = () => {
-  const postLogin = useSelector((state: ApplicationState) => state.api.login);
+  const { postLogin } = useSelector((state: ApplicationState) => state.api.login);
 
   return (
     <BrowserRouter>
-      { postLogin.postLogin && postLogin.postLogin.isLogged ? 
+      { postLogin && !postLogin.isLogged ? 
         <AppRoutes /> :
         <AuthRoutes />
       }

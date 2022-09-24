@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
 
 // STYLES
 
@@ -14,15 +18,35 @@ import ButtonCommon from "@components/Button";
 
 import logoImg from '@assets/logo.svg';
 
+// STORES
+
+import { postLoginRequest } from "@store/modules/api/login/postLogin/action";
+
 const SignIn: React.FC = () => {
+  const navigateTo = useNavigate();
+
+  const dispatch = useDispatch();
+  
+  const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    dispatch(postLoginRequest({
+      email: 'admin@admin.com',
+      password: 'admin'
+    }));
+
+    navigateTo('/dashboard');
+  }, [ dispatch, navigateTo ]);
+
   return (
     <Container>
       <Logo>
         <img src={ logoImg } alt="Minha Carteira" />
+
         <h2>Minha Carteira</h2>
       </Logo>
 
-      <Form onSubmit={ () => {} }>
+      <Form onSubmit={ handleSubmit }>
         <FormTitle>Entrar</FormTitle>
 
         <InputCommon 

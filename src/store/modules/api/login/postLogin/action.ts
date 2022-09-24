@@ -11,21 +11,21 @@ import { ReducerAction } from '@store/types';
 
 export function postLoginRequest(payload: PostLoginType): ReducerAction {
   return {
-    type: POST_LOGIN_FAILURE,
+    type: POST_LOGIN_REQUEST,
     payload
   };
 }
 
 export function postLoginSuccess(payload: object): ReducerAction {
   return {
-    type: POST_LOGIN_REQUEST,
+    type: POST_LOGIN_SUCCESS,
     payload
   };
 }
 
 export function postLoginFailure(payload: object): ReducerAction {
   return {
-    type: POST_LOGIN_SUCCESS,
+    type: POST_LOGIN_FAILURE,
     payload
   };
 }

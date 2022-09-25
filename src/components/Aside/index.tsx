@@ -1,12 +1,16 @@
 import React, { useCallback } from "react";
 
+import { useDispatch } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+
 // ASSETS
 
 import logoImg from '@assets/logo.svg';
 
 // STYLES
 
-import { Container, Header, LogoImg, Title, MenuContainer, MenuItemLink } from './styles';
+import { Container, Header, LogoImg, Title, MenuContainer, MenuItemLink, MenuItemButton } from './styles';
 
 // ROUTES
 
@@ -16,11 +20,23 @@ import { mappingRoutes } from "@routes/mapping.routes";
 
 import { IRoute } from "@store/types";
 
+import { logout } from "@store/modules/api/login/postLogin/action";
+
 // COMPONENTS
 
 import { v4 as uuidv4 } from 'uuid';
 
 const Aside: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const navigateTo = useNavigate();
+
+  const signOut = useCallback((path: string) => {
+    dispatch(logout());
+
+    return navigateTo(path);
+  }, [ dispatch, navigateTo ]);
+
   const handleMenuItemLink = useCallback((route: IRoute) => {
     if (route.displayed !== false) {
       if (route.submenu) {
@@ -35,13 +51,13 @@ const Aside: React.FC = () => {
         });
       } else {
         if (route.othersidePath) {
-          return <MenuItemLink 
+          return <MenuItemButton 
                     key={ uuidv4() } 
-                    href={ route.othersidePath }
+                    onClick={ () => signOut(route.othersidePath || '') }
                   >
                     { route.othersideIcon }
                     { route.othersideTitle }
-                </MenuItemLink>;
+                </MenuItemButton>;
         }
 
         return <MenuItemLink 
@@ -53,7 +69,7 @@ const Aside: React.FC = () => {
               </MenuItemLink>;
       }
     }
-  }, []);
+  }, [ signOut ]);
 
   return (
     <Container>

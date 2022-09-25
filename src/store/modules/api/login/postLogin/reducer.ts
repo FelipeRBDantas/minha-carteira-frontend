@@ -39,7 +39,7 @@ export const postLoginReducer = (state = initialState, action: ReducerAction) : 
         ...state,
         data: action.payload.data,
         status: action.payload.status,
-        isLogged: false,
+        isLogged: true, // Está true para teste sem serviço backend
         formData: action.formData
       };
       

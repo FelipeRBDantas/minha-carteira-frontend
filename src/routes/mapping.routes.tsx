@@ -23,7 +23,7 @@ export const mappingRoutes: Array<IRoute> = [
     icon: <MdDashboard />,
     othersideIcon: null,
     auth: true,
-    path: '/dashboard',
+    path: '/',
     othersidePath: null,
     element: <Dashboard />,
     submenu: null,

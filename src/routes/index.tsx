@@ -1,17 +1,30 @@
 import React from "react";
 
+import { useSelector } from "react-redux";
+
 import { BrowserRouter } from "react-router-dom";
 
 // ROUTES
 
-// import AppRoutes from "@/routes/app.routes";
+import AppRoutes from "@routes/app.routes";
 
-import AuthRoutes from "@/routes/auth.routes";
+import AuthRoutes from "@routes/auth.routes";
 
-const Routes: React.FC = () => (
-  <BrowserRouter>
-    <AuthRoutes />
-  </BrowserRouter>
-);
+// STORES
+
+import { ApplicationState } from "@store/types";
+
+const Routes: React.FC = () => {
+  const { postLogin } = useSelector((state: ApplicationState) => state.api.loginState);
+
+  return (
+    <BrowserRouter>
+      { postLogin.isLogged ? 
+        <AppRoutes /> :
+        <AuthRoutes />
+      }
+    </BrowserRouter>
+  );
+}
 
 export default Routes;

@@ -13,13 +13,15 @@ import { mappingRoutes } from "@/routes/mapping.routes";
 const AppRoutes: React.FC = () => (
   <Layout>
     <Routes>
-      { mappingRoutes.map((route, index) => (
-        <Route 
-          key={ index }
-          path={ route.path } 
-          element={ route.element } 
-        />
-      )) }
+      { mappingRoutes
+        .filter( route => route.auth)
+        .map((route, index) => (
+          <Route 
+            key={ index }
+            path={ route.path } 
+            element={ route.element } 
+          />
+        )) }
     </Routes>
   </Layout>
 );

@@ -3,6 +3,7 @@ import {
   POST_LOGIN_REQUEST, 
   POST_LOGIN_SUCCESS,
   POST_LOGIN_CLEAR,
+  LOGOUT,
   PostLoginType
 } from '@store/modules/api/login/postLogin/types';
 
@@ -28,9 +29,17 @@ export function postLoginFailure(payload: object): ReducerAction {
     payload
   };
 }
+
 export function postLoginClear(): ReducerAction {
   return {
     type: POST_LOGIN_CLEAR,
+    payload: null
+  };
+}
+
+export function logout(): ReducerAction {
+  return {
+    type: LOGOUT,
     payload: null
   };
 }

@@ -50,7 +50,7 @@ const PieChartBox: React.FC<IPieChartProps> = ({
     </SideLeft>
 
     <SideRight>
-      <ResponsiveContainer>
+      <ResponsiveContainer height="100%" width="100%">
         <PieChart>
           <Pie 
             data={ data }

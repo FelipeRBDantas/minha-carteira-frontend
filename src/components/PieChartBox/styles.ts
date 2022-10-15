@@ -12,6 +12,15 @@ export const Container = styled.div`
   border-radius: 7px;
   background-color: ${ props=> props.theme.colors.tertiary };
   color: ${ props=> props.theme.colors.white };
+  
+  @media(max-width: 770px) {
+    display: flex;
+    width: 100%;
+  }
+  
+  @media(max-width: 420px) {
+    height: 220px;
+  }
 `;
 
 export const SideLeft = styled.aside`
@@ -50,10 +59,10 @@ export const Legend = styled.li<ILegendProps>`
   
   > div {
     background-color: ${ props => props.color };
-    width: 60px;
-    height: 40px;
+    width: 58px;
+    height: 38px;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
     line-height: 40px;
 

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import ToggleComponent from '@components/Toggle';
+
 export const Container = styled.div`
   grid-area: MH;
   background-color: ${ props => props.theme.colors.secondary };
@@ -20,4 +22,8 @@ export const Welcome = styled.h3`
 
 export const UserName = styled.span`
     
+`;
+
+export const Toggle = styled(ToggleComponent)`
+  
 `;

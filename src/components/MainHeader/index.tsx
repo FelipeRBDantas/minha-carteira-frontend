@@ -8,19 +8,15 @@ import { ApplicationState } from "@store/types";
 
 import { addTheme } from "@store/modules/app/themes/action";
 
-import { ITheme } from "@/store/modules/app/themes/types";
+import { ITheme } from "@store/modules/app/themes/types";
 
 // STYLES
 
-import { Container, Profile, Welcome, UserName } from './styles';
+import { Container, Profile, Welcome, UserName, Toggle } from './styles';
 
 import light from "@styles/themes/light";
 
 import dark from "@styles/themes/dark";
-
-// COMPONENTS COMMON
-
-import Toggle from '@components/Toggle';
 
 // UTILS
 

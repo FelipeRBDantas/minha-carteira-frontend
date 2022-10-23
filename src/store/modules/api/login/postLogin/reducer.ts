@@ -12,7 +12,7 @@ import { ReducerAction } from '@store/modules/api/login/postLogin/types';
 const initialState: PostLoginState = {
   data: null,
   status: 0,
-  isLogged: null,
+  isLogged: true, // Está true para teste sem serviço backend
   formData: null
 }
 

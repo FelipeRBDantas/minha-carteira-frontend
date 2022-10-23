@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
 import { useDispatch } from "react-redux";
 
@@ -10,7 +10,7 @@ import logoImg from '@assets/logo.svg';
 
 // STYLES
 
-import { Container, Header, LogoImg, Title, MenuContainer, MenuItemLink, MenuItemButton } from './styles';
+import { Container, Header, LogoImg, Title, MenuContainer, MenuItemLink, MenuItemButton, ToggleMenu } from './styles';
 
 // ROUTES
 
@@ -26,10 +26,18 @@ import { logout } from "@store/modules/api/login/postLogin/action";
 
 import { v4 as uuidv4 } from 'uuid';
 
+import { MdClose, MdMenu } from 'react-icons/md';
+
 const Aside: React.FC = () => {
   const dispatch = useDispatch();
 
   const navigateTo = useNavigate();
+
+  const [toggleMenuIsOpen, setToggleMenuIsOpen] = useState(false);
+
+  const handleToggleMenu = useCallback(() => {
+    setToggleMenuIsOpen(!toggleMenuIsOpen);
+  }, [ toggleMenuIsOpen ]);
 
   const signOut = useCallback((path: string) => {
     dispatch(logout());
@@ -72,9 +80,14 @@ const Aside: React.FC = () => {
   }, [ signOut ]);
 
   return (
-    <Container menuIsOpen={ true }>
+    <Container menuIsOpen={ toggleMenuIsOpen }>
       <Header>
+        <ToggleMenu onClick={ handleToggleMenu }>
+          { toggleMenuIsOpen ? <MdClose /> : <MdMenu /> }
+        </ToggleMenu>
+
         <LogoImg src={ logoImg } alt={ "Logo Minha Carteira" } />
+
         <Title>Minha Carteira</Title>
       </Header>
       

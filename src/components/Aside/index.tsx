@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,22 @@ import logoImg from '@assets/logo.svg';
 
 // STYLES
 
-import { Container, Header, LogoImg, Title, MenuContainer, MenuItemLink, MenuItemButton, ToggleMenu } from './styles';
+import { 
+  Container, 
+  Header, 
+  LogoImg, 
+  Title, 
+  MenuContainer, 
+  MenuItemLink, 
+  MenuItemButton, 
+  ToggleMenu, 
+  ThemeToggleFooter 
+} from './styles';
+
+
+import light from "@styles/themes/light";
+
+import dark from "@styles/themes/dark";
 
 // ROUTES
 
@@ -22,11 +37,21 @@ import { IRoute } from "@store/types";
 
 import { logout } from "@store/modules/api/login/postLogin/action";
 
+import { ApplicationState } from "@store/types";
+
+import { addTheme } from "@store/modules/app/themes/action";
+
+import { ITheme } from "@store/modules/app/themes/types";
+
 // COMPONENTS
 
 import { v4 as uuidv4 } from 'uuid';
 
 import { MdClose, MdMenu } from 'react-icons/md';
+
+// COMPONENTS
+
+import Toggle from "@components/Toggle";
 
 const Aside: React.FC = () => {
   const dispatch = useDispatch();
@@ -34,6 +59,36 @@ const Aside: React.FC = () => {
   const navigateTo = useNavigate();
 
   const [toggleMenuIsOpen, setToggleMenuIsOpen] = useState(false);
+
+  const { theme } = useSelector((state: ApplicationState) => state.app.themes);
+
+  const [ isTheme, setIsTheme ] = useState<ITheme>(() => {
+    const themeSaved = localStorage.getItem('@minha-carteira:theme');
+
+    if (themeSaved) {
+      return JSON.parse(themeSaved);
+    } else if (theme) {
+      return theme;
+    } else {
+      return dark;
+    }
+  });
+
+  const handleChangeTheme = () => {
+    if (isTheme.title === 'light') {
+      setIsTheme(dark);
+
+      addTheme({ theme: { ...dark } });
+
+      localStorage.setItem('@minha-carteira:theme', JSON.stringify(dark));
+    } else {
+      setIsTheme(light);
+
+      addTheme({ theme: { ...light } });
+
+      localStorage.setItem('@minha-carteira:theme', JSON.stringify(light));
+    }
+  }
 
   const handleToggleMenu = useCallback(() => {
     setToggleMenuIsOpen(!toggleMenuIsOpen);
@@ -94,6 +149,15 @@ const Aside: React.FC = () => {
       <MenuContainer>
         { mappingRoutes.map( (route) => handleMenuItemLink( route ) ) }
       </MenuContainer>
+
+      <ThemeToggleFooter menuIsOpen={ toggleMenuIsOpen }>
+        <Toggle
+          labelLeft="Light"
+          labelRight="Dark"
+          checked={ isTheme.title === 'dark' }
+          onChange={ handleChangeTheme }
+        />
+      </ThemeToggleFooter>
     </Container>
   );
 }

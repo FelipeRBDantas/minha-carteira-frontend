@@ -16,7 +16,7 @@ export const Container = styled.div<IContainerProps>`
 
   @media(max-width: 660px) {
     position: fixed;
-    padding-left: 7px;
+    padding-left: 20px;
     z-index: 2;
     height: ${ props => props.menuIsOpen ? '100vh' : '70px' };
     ${ props => !props.menuIsOpen && css`
